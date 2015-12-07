@@ -1,0 +1,3 @@
+mod 'razorsedge/vmwaretools', '5.1.0'
+mod 'puppetlabs/apt', '2.2.0'
+mod 'adrien/steam', '0.0.2'

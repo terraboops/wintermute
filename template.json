@@ -1,0 +1,83 @@
+{
+
+  "variables":
+    {
+      "template_name": "wintermute",
+      "template_os": "ubuntu-64",
+
+      "iso_url": "http://releases.ubuntu.com/15.10/ubuntu-15.10-server-i386.iso",
+      "iso_checksum": "fa97768bdc3f198b82180d39bf0c26f021ab716f5da98094cd220771095e3394",
+      "iso_checksum_type": "sha256",
+
+      "memory_size": "2048",
+      "cpu_count": "2",
+
+      "required_modules": "puppetlabs-stdlib saz-ssh",
+      "puppet_nfs": "{{env `PUPPET_NFS`}}"
+    },
+
+  "builders": [
+    {
+      "name": "wintermute",
+      "type": "vmware-iso",
+      "boot_command": [
+        "<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        " /install/vmlinuz auto <wait>",
+        " console-setup/ask_detect=false <wait>",
+        " console-setup/layoutcode=us <wait>",
+        " console-setup/modelcode=pc105 <wait>",
+        " debconf/frontend=noninteractive <wait>",
+        " debian-installer=en_US <wait>",
+        " fb=false <wait>",
+        " initrd=/install/initrd.gz <wait>",
+        " kbd-chooser/method=us <wait>",
+        " keyboard-configuration/layout=USA <wait>",
+        " keyboard-configuration/variant=USA <wait>",
+        " locale=en_US <wait>",
+        " netcfg/get_domain=vm <wait>",
+        " netcfg/get_hostname=localhost <wait>",
+        " grub-installer/bootdev=/dev/sda<wait>",
+        " noapic <wait>",
+        " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg <wait>",
+        " -- <wait>",
+        "<enter>"
+      ],
+      "boot_wait": "10s",
+      "disk_size": 20480,
+      "guest_os_type": "{{user `template_os`}}",
+      "http_directory": "bootstrap/preseed",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+      "iso_url": "{{user `iso_url`}}",
+      "ssh_username": "root",
+      "ssh_password": "puppet",
+      "ssh_port": 22,
+      "ssh_wait_timeout": "10000s",
+      "shutdown_command": "/sbin/halt -h -p",
+      "tools_upload_flavor": "linux",
+      "vmx_data": {
+        "memsize": "{{user `memory_size`}}",
+        "numvcpus": "{{user `cpu_count`}}",
+        "cpuid.coresPerSocket": "1"
+      }
+    }
+  ],
+
+  "provisioners": [
+    {
+      "type": "shell",
+      "environment_vars": [
+      ],
+      "scripts": [
+        "./bootstrap/puppet.sh"
+      ]
+    },
+    {
+      "type": "shell-local",
+      "command": "r10k puppetfile install --puppetfile puppet/Puppetfile --moduledir puppet/modules"
+    }
+  ]
+}

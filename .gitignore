@@ -1,0 +1,10 @@
+.DS_Store
+
+# Cache objects
+packer_cache/
+
+# For built boxes
+output-wintermute/
+
+# Puppet dependencies (installed via r10k)
+puppet/modules
