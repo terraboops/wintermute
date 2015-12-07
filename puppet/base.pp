@@ -16,8 +16,6 @@ class wintermute {
 		ensure  => 'latest'
 	}
 
-	# Install Steam - HLDS
-	include steam::hlds
 	# Install Steam - steamcmd
 	include steam::steamcmd
 	# Install Open VM Tools

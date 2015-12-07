@@ -82,7 +82,8 @@
       "type": "puppet-masterless",
       "manifest_dir": "./puppet/",
       "manifest_file": "./puppet/base.pp",
-      "module_paths": "./puppet/modules"
+      "module_paths": "./puppet/modules",
+      "hiera_config_path": "./puppet/hiera.yaml"
     }
   ]
 }
