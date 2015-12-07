@@ -11,9 +11,9 @@ class wintermute {
 			source => 'http://archive.getdeb.net/getdeb-archive.key',
 		}
 	}
+	Apt::Source['playdeb'] -> Package<|title == 'xonotic'|>
 	package { 'xonotic':
-		ensure  => 'latest',
-		require => Apt::Source['playdeb']
+		ensure  => 'latest'
 	}
 
 	# Install Steam - HLDS
