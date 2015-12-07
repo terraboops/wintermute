@@ -5,8 +5,8 @@
       "template_name": "wintermute",
       "template_os": "ubuntu-64",
 
-      "iso_url": "http://releases.ubuntu.com/15.10/ubuntu-15.10-server-i386.iso",
-      "iso_checksum": "fa97768bdc3f198b82180d39bf0c26f021ab716f5da98094cd220771095e3394",
+      "iso_url": "http://releases.ubuntu.com/15.10/ubuntu-15.10-server-amd64.iso",
+      "iso_checksum": "86aa35a986eba6e5ad30e3d486d57efe6803ae7ea4859b0216953e9e62871131",
       "iso_checksum_type": "sha256",
 
       "memory_size": "2048",
