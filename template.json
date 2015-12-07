@@ -53,7 +53,7 @@
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_url": "{{user `iso_url`}}",
       "ssh_username": "root",
-      "ssh_password": "puppet",
+      "ssh_password": "hatsize",
       "ssh_port": 22,
       "ssh_wait_timeout": "10000s",
       "shutdown_command": "/sbin/halt -h -p",
@@ -78,6 +78,11 @@
     {
       "type": "shell-local",
       "command": "r10k puppetfile install --puppetfile puppet/Puppetfile --moduledir puppet/modules"
+    },
+    {
+      "type": "puppet-masterless",
+      "manifest_dir": "./puppet/",
+      "manifest_file": "./puppet/base.pp"
     }
   ]
 }
