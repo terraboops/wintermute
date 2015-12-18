@@ -2,18 +2,10 @@
 
   "variables":
     {
-      "template_name": "wintermute",
-      "template_os": "ubuntu-64",
-
-      "iso_url": "http://releases.ubuntu.com/15.10/ubuntu-15.10-server-amd64.iso",
-      "iso_checksum": "86aa35a986eba6e5ad30e3d486d57efe6803ae7ea4859b0216953e9e62871131",
-      "iso_checksum_type": "sha256",
-
       "memory_size": "2048",
       "cpu_count": "2",
 
-      "required_modules": "puppetlabs-stdlib saz-ssh",
-      "puppet_nfs": "{{env `PUPPET_NFS`}}"
+      "xonotic_map_url": ""
     },
 
   "builders": [
@@ -47,11 +39,11 @@
       ],
       "boot_wait": "10s",
       "disk_size": 102400,
-      "guest_os_type": "{{user `template_os`}}",
+      "guest_os_type": "ubuntu-64",
       "http_directory": "bootstrap/preseed",
-      "iso_checksum": "{{user `iso_checksum`}}",
-      "iso_checksum_type": "{{user `iso_checksum_type`}}",
-      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "86aa35a986eba6e5ad30e3d486d57efe6803ae7ea4859b0216953e9e62871131",
+      "iso_checksum_type": "sha256",
+      "iso_url": "http://releases.ubuntu.com/15.10/ubuntu-15.10-server-amd64.iso",
       "ssh_username": "root",
       "ssh_password": "hatsize",
       "ssh_port": 22,
@@ -83,7 +75,10 @@
       "manifest_dir": "./puppet/",
       "manifest_file": "./puppet/base.pp",
       "module_paths": "./puppet/modules",
-      "hiera_config_path": "./puppet/hiera.yaml"
+      "hiera_config_path": "./puppet/hiera.yaml",
+      "facter": {
+        "xonotic_map_url": "{{user `xonotic_map_url`}}"
+      }
     }
   ]
 }
